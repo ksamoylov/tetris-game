@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let score = 0;
   const startBtn = document.querySelector("#start-button");
   const restartBtn = document.querySelector("#restart-button");
+  const downBtn = document.querySelector("#down-button");
   const title = document.querySelector(".status");
   const width = 10;
   let nextRandom = 0;
@@ -227,7 +228,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   startBtn.addEventListener("click", run);
-  restartBtn.addEventListener("click", restart)
+  restartBtn.addEventListener("click", restart);
+  document.addEventListener("touchstart", handleTouchStart, false);
+  document.addEventListener("touchmove", handleTouchMove, false);
+  downBtn.addEventListener("click", moveDown);
+
+  if (isTouchDevice()) {
+    grid.addEventListener("click", rotate);
+    downBtn.style.display = "block";
+  }
 
   // pontuação
 
@@ -273,5 +282,53 @@ document.addEventListener("DOMContentLoaded", () => {
       startBtn.remove();
       restartBtn.style.display = 'block';
     }
+  }
+
+  let xDown = null;
+  let yDown = null;
+
+  function getTouches(evt) {
+    return evt.touches || evt.originalEvent.touches;
+  }
+
+  function handleTouchStart(evt) {
+    evt.preventDefault();
+    const firstTouch = getTouches(evt)[0];
+    xDown = firstTouch.clientX;
+    yDown = firstTouch.clientY;
+  }
+
+  function handleTouchMove(evt) {
+    if (!xDown || !yDown) {
+      return;
+    }
+
+    let xUp = evt.touches[0].clientX;
+    let yUp = evt.touches[0].clientY;
+    let xDiff = xDown - xUp;
+    let yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+      if (xDiff > 0) {
+        moveLeft();
+      } else {
+        moveRight();
+      }
+    } else {
+      if (yDiff <= 0) {
+        moveDown();
+      }
+    }
+
+    xDown = null;
+    yDown = null;
+    xDiff = null;
+    yDiff = null;
+  }
+
+  function isTouchDevice() {
+    return (('ontouchstart' in window) ||
+      (navigator.maxTouchPoints > 0) ||
+      (navigator.msMaxTouchPoints > 0));
   }
 });
