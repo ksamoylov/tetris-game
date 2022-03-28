@@ -212,9 +212,11 @@ document.addEventListener("DOMContentLoaded", () => {
       clearInterval(timerId);
       timerId = null;
       title.style.display = "block";
+      startBtn.innerHTML = "Go!";
     } else {
       timerId = setInterval(moveDown, wait);
       title.style.display = "none";
+      startBtn.innerHTML = "Pause";
       nextRandom = Math.floor(Math.random() * theTetrominoes.length);
       displayShape();
     }
