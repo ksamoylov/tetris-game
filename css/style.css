@@ -26,6 +26,7 @@ body {
   display: flex;
   margin-top: 20px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .score {
   padding: 10px;
@@ -52,9 +53,28 @@ body {
   text-shadow: 0 0 12px #f5576c94;
 }
 
+#restart-button {
+  border: none;
+  background: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+  padding: 7px 20px;
+  color: #fff;
+  font-weight: bold;
+  font-family: Roboto, sans-serif;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.2s all linear;
+  display: none;
+}
+
+#restart-button:hover {
+  box-shadow: 0 0 12px #f5576c94;
+  text-shadow: 0 0 12px #f5576c94;
+}
+
 .grid {
-  width: 200px;
-  height: 400px;
+  width: 300px;
+  height: 600px;
   background: rgba(0, 0, 0, 0.2);
   display: flex;
   flex-wrap: wrap;
@@ -63,8 +83,8 @@ body {
 }
 
 .grid div {
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
   transition: 0.3s all linear;
 }
 

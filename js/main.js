@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const scoreDisplay = document.querySelector("#score");
   let score = 0;
   const startBtn = document.querySelector("#start-button");
+  const restartBtn = document.querySelector("#restart-button");
   const title = document.querySelector(".status");
   const width = 10;
   let nextRandom = 0;
@@ -218,7 +219,13 @@ document.addEventListener("DOMContentLoaded", () => {
       displayShape();
     }
   }
+
+  function restart() {
+    location.reload();
+  }
+
   startBtn.addEventListener("click", run);
+  restartBtn.addEventListener("click", restart)
 
   // pontuação
 
@@ -260,6 +267,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
       scoreDisplay.innerHTML = "Game Over";
       clearInterval(timerId);
+      document.removeEventListener("keydown", control);
+      startBtn.remove();
+      restartBtn.style.display = 'block';
     }
   }
 });
